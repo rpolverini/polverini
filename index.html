@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polverini Family Site [Linux Terminal]</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #1a1b26;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: 'Courier New', Consolas, 'Lucida Console', monospace;
+    }
+
+    .terminal {
+      width: 740px;
+      max-width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75),
+                  0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .terminal-header {
+      background: #3b3d52;
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+
+    .btns {
+      display: flex;
+      gap: 7px;
+    }
+
+    .btn {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .btn-close { background: #ff5f56; }
+    .btn-min   { background: #ffbd2e; }
+    .btn-max   { background: #27c93f; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      color: #7c7d8a;
+      font-size: 13px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .terminal-body {
+      background: #1e1e2e;
+      padding: 22px 26px 30px;
+      min-height: 420px;
+      color: #cdd6f4;
+      font-size: 14px;
+      line-height: 1.9;
+      word-break: break-word;
+    }
+
+    /* prompt colours */
+    .pu { color: #a6e3a1; }   /* user@host  */
+    .pp { color: #89dceb; }   /* :~         */
+    .pd { color: #cdd6f4; }   /* $          */
+
+    /* output text */
+    .po { color: #a6adc8; }
+
+    /* clickable file link inside terminal */
+    .file-link {
+      color: #89b4fa;
+      text-decoration: none;
+    }
+    .file-link:hover { text-decoration: underline; }
+
+    /* TypeIt cursor tweak */
+    .ti-cursor { font-weight: 100; }
+  </style>
+</head>
+<body>
+
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="btns">
+        <div class="btn btn-close"></div>
+        <div class="btn btn-min"></div>
+        <div class="btn btn-max"></div>
+      </div>
+      <div class="terminal-title">polverini — bash — 80×24</div>
+    </div>
+    <div class="terminal-body">
+      <span id="output"></span>
+    </div>
+  </div>
+
+  <!-- TypeIt.js — fork of codepen.io/adnanov/pen/QKjMgb -->
+  <script src="typeit.umd.js"></script>
+  <script>
+    const p = '<span class="pu">ramiro@polverini</span>'
+            + '<span class="pp">:~</span>'
+            + '<span class="pd">$</span> ';
+
+    new TypeIt('#output', {
+      speed: 55,
+      html: true,
+      cursorChar: '█',
+    })
+      .type(p + 'whoami')
+      .pause(700)
+      .break()
+      .type('<span class="po">ramiro</span>')
+      .pause(500)
+      .break()
+      .type(p + 'uname -a')
+      .pause(700)
+      .break()
+      .type('<span class="po">GNU/Linux polverini.com.ar 5.15.0 #1 SMP Buenos Aires, Argentina</span>')
+      .pause(500)
+      .break()
+      .type(p + 'cat bienvenida.txt')
+      .pause(700)
+      .break()
+      .break()
+      .type('<span class="po">  ╔════════════════════════════════════╗</span>')
+      .break()
+      .type('<span class="po">  ║   Familia Polverini                ║</span>')
+      .break()
+      .type('<span class="po">  ║   Buenos Aires, Argentina          ║</span>')
+      .break()
+      .type('<span class="po">  ╚════════════════════════════════════╝</span>')
+      .break()
+      .break()
+      .type('<span class="po">  Bienvenidos al sitio familiar.</span>')
+      .break()
+      .type('<span class="po">  Fork de: codepen.io/adnanov/pen/QKjMgb</span>')
+      .pause(600)
+      .break()
+      .break()
+      .type(p + 'ls -1')
+      .pause(700)
+      .break()
+      .type('<a href="indice.html" class="file-link">indice.html</a>')
+      .pause(600)
+      .break()
+      .type(p)
+      .go();
+  </script>
+
+</body>
+</html>
