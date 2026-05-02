@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polverini Family Site [Linux Terminal]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #bdc3c7;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 17px;
+    }
+    p { margin: 25px; }
+    a { margin: 10px; color: #26a269; }
+
+    .window {
+      width: min(600px, 100%);
+      margin: clamp(8px, 5vh, 75px) auto;
+      background: #2c3e50;
+      height: min(750px, 90vh);
+      border-radius: 5px;
+      box-shadow: 10px 10px 10px #888888;
+      overflow: hidden;
+    }
+    .afterclose {
+      color: #34495e;
+      display: none;
+      text-align: center;
+    }
+    .open {
+      color: #fff;
+      padding: 15px;
+      background: #2ecc71;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    .bash {
+      width: 100%;
+      background: #34495e;
+      height: calc(100% - 40px);
+      border-radius: 5px;
+      color: #fff;
+      overflow-y: auto;
+    }
+    .windowmax {
+      width: 100%;
+      margin: 0;
+      background: #2c3e50;
+      height: 100vh;
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .windowmin {
+      width: min(300px, 80vw);
+      height: 45px;
+      background: #2c3e50;
+      border-radius: 5px;
+      bottom: 0;
+      position: fixed;
+      overflow: hidden;
+    }
+    .bashmax {
+      width: 100%;
+      background: #34495e;
+      height: calc(100vh - 40px);
+      border-radius: 0;
+      color: #fff;
+      overflow-y: auto;
+    }
+    .buttons {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      float: right;
+      margin: 13px 4px;
+      border: none;
+      cursor: pointer;
+    }
+    .close    { background: #e74c3c; }
+    .maximize { background: #f1c40f; }
+    .minimize { background: #2ecc71; }
+    .result   { display: none; }
+    .controls { height: 40px; }
+    .title    { color: #fff; font-weight: bold; padding: 10px; }
+    .footer-note { color: #777; font-size: 12px; text-align: center; }
+
+    @media (max-width: 480px) {
+      body { font-size: 14px; }
+      p    { margin: 10px 15px; }
+      a    { margin: 5px; }
+    }
+  </style>
+</head>
+<body>
+<h1 class="afterclose">You Closed Terminal! &rarr; <button class="open">reopen?</button></h1>
+<div class="window">
+  <div class="controls">
+    <button class="buttons close"    aria-label="Cerrar"></button>
+    <button class="buttons maximize" aria-label="Maximizar"></button>
+    <button class="buttons minimize" aria-label="Minimizar"></button>
+    <div class="title">Web Terminal</div>
+  </div>
+  <div class="bash">
+    <span id="span">[guest@polverini ~]:$</span>
+    <span class="type-it">sudo apt search Polverini</span>
+    <br>
+    <div class="result">
+      <span id="span2">
+        <br>
+        <a href="#">Alberto Andrés</a> / Buenos Aires, Argentina<br>
+        <p>Papá y Abuelo. Raíz del árbol familiar de esta rama de los Polverini.</p>
+        <br>
+        <a href="#">André</a> / Buenos Aires, Argentina<br>
+        <p>Actor desde los 4 años, con más de 13 años de escenario. Estudiante de Lic. en Ciberseguridad (FASTA, 2026). Pasante técnico con experiencia en Python, Django, AWS y Docker. Buscando su primer rol en IT y seguridad.</p>
+        <br>
+        <a href="#">Cindy</a> / Buenos Aires, Argentina<br>
+        <p>Profesora de inglés y de Pilates.</p>
+        <br>
+        <a href="http://fpcontrol.com.ar">Fernando Fabián</a> / Buenos Aires, Argentina<br>
+        <p>+30 años desarrollando software para automatización industrial. Especialista en diseño de máquinas especiales, programación de HMI y PLC Panasonic. Proyectos destacados: hornos industriales de atmósfera controlada (hasta 1.600°C), equipos de montaje para laboratorios y retrofitting. Titular de FP Control.</p>
+        <br>
+        <a href="https://www.linkedin.com/in/milagros-daira-polverini-%C3%A1lvarez-9087062ab/">Milagros</a> / Buenos Aires, Argentina<br>
+        <p>Actriz y futura docente de expresión corporal. Cursando el Profesorado en la Escuela Municipal de Danzas José Neglia. Operadora y atención al cliente en TuMenu.com.ar.</p>
+        <br>
+        <a href="https://polverini.com.ar/rpolverini/index.html">Ramiro</a> / Buenos Aires, Argentina<br>
+        <p>Desarrollador de software y constructor de soluciones. Cooperativista, entusiasta del software libre y saxofonista amateur. Convierto problemas complejos en sistemas simples y útiles.</p>
+      </span>
+    </div>
+  </div>
+</div>
+<p class="footer-note">Fork of <a href="https://codepen.io/adnanov/pen/QKjMgb">Css Art [Linux Terminal]</a> by adnanov</p>
+<script src="./script.js" defer></script>
+</body>
+</html>
