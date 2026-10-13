@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collage</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    [x-cloak] { display: none !important; }
+    body { font-family: system-ui, sans-serif; background: #111; color: #eee; }
+    h1 { text-align: center; padding: 1.5rem 1rem 1rem; font-weight: 500; }
+
+    .grid { columns: 220px; column-gap: 10px; padding: 10px; max-width: 1400px; margin: 0 auto; }
+    .grid img { width: 100%; display: block; margin-bottom: 10px; border-radius: 6px; cursor: zoom-in; transition: opacity .2s, transform .2s; }
+    .grid img:hover { opacity: .85; transform: scale(1.01); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 10; }
+    .lightbox img { max-width: 92vw; max-height: 88vh; object-fit: contain; user-select: none; }
+    .lightbox button { position: absolute; background: none; border: 0; color: #fff; font-size: 2.5rem; cursor: pointer; padding: .5rem 1rem; opacity: .7; }
+    .lightbox button:hover { opacity: 1; }
+    .close { top: 0; right: 0; }
+    .prev { left: 0; top: 50%; transform: translateY(-50%); }
+    .next { right: 0; top: 50%; transform: translateY(-50%); }
+    .counter { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; font-size: .9rem; opacity: .7; }
+  </style>
+</head>
+<body x-data="collage()" @keydown.window="onKey($event)">
+  <h1>Collage</h1>
+
+  <div class="grid">
+    <template x-for="(src, i) in photos" :key="src">
+      <img :src="src" loading="lazy" alt="" @click="open(i)">
+    </template>
+  </div>
+
+  <div class="lightbox" x-cloak x-show="current !== null" x-transition.opacity
+       @click.self="close()"
+       @touchstart.passive="touchX = $event.touches[0].clientX"
+       @touchend.passive="swipe($event.changedTouches[0].clientX)">
+    <button class="close" @click="close()" aria-label="Cerrar">&times;</button>
+    <button class="prev" @click="prev()" aria-label="Anterior">&#10094;</button>
+    <img :src="photos[current]" alt="" x-show="current !== null">
+    <button class="next" @click="next()" aria-label="Siguiente">&#10095;</button>
+    <div class="counter" x-text="(current + 1) + ' / ' + photos.length"></div>
+  </div>
+
+  <script>
+    function collage() {
+      const files = [
+        'WhatsApp Image 2026-10-12 at 21.59.11.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.12.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.13 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.13.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.15 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.15 (2).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.15.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.16 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.16.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.17 (1) 2.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.17 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.17.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.18 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.18 2.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.18.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.19 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.19.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.25.jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.26 (1).jpeg',
+        'WhatsApp Image 2026-10-12 at 21.59.26.jpeg',
+      ];
+      return {
+        photos: files.map(encodeURIComponent),
+        current: null,
+        touchX: 0,
+        open(i) { this.current = i; document.body.style.overflow = 'hidden'; },
+        close() { this.current = null; document.body.style.overflow = ''; },
+        next() { this.current = (this.current + 1) % this.photos.length; },
+        prev() { this.current = (this.current - 1 + this.photos.length) % this.photos.length; },
+        swipe(x) {
+          const dx = x - this.touchX;
+          if (Math.abs(dx) > 50) dx < 0 ? this.next() : this.prev();
+        },
+        onKey(e) {
+          if (this.current === null) return;
+          if (e.key === 'Escape') this.close();
+          else if (e.key === 'ArrowRight') this.next();
+          else if (e.key === 'ArrowLeft') this.prev();
+        },
+      };
+    }
+  </script>
+</body>
+</html>
